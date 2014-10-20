@@ -20,5 +20,6 @@
     <string name="strMoney">0.00</string>
     <string name="strTimer">0:00:00</string>
     <string name="menu_about">O programie</string>
+    <string name="menu_rate">Oceń aplikację</string>
     <string name="title_activity_details">Twoja pensja</string>
 </resources>

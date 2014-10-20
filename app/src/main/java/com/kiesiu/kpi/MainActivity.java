@@ -16,6 +16,8 @@
 package com.kiesiu.kpi;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +38,10 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_rate:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.kiesiu.kpi")));
+        }
         return super.onOptionsItemSelected(item);
     }
 }
