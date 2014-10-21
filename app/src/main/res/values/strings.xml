@@ -22,4 +22,6 @@
     <string name="menu_about">O programie</string>
     <string name="menu_rate">Oceń aplikację</string>
     <string name="title_activity_details">Twoja pensja</string>
+    <string name="strAbout">Sprawdź ile jest warta Twoja praca.</string>
+    <string name="strCredits">Copyright © 2014 Łukasz Kieś\n\nIncome designed by <a href="http://www.thenounproject.com/Doug Cavendish">Doug Cavendish</a> from the <a href="http://www.thenounproject.com">Noun Project</a>. Time designed by <a href="http://www.thenounproject.com/Wayne25uk">Wayne Middleton</a> from the <a href="http://www.thenounproject.com">Noun Project</a>.</string>
 </resources>

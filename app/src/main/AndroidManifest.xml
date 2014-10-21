@@ -12,6 +12,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kiesiu.kpi">
 
@@ -36,6 +37,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.kiesiu.kpi.MainActivity" />
         </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>
