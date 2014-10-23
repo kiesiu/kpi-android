@@ -17,48 +17,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.kiesiu.kpi.MainActivity"
-    android:orientation="vertical">
+    tools:context="com.kiesiu.kpi.MainActivity">
 
     <EditText
+        android:id="@+id/etSalary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/etSalary"
-        android:hint="@string/strSalary" />
+        android:hint="@string/strSalary"
+        android:inputType="numberDecimal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <Spinner
+            android:id="@+id/spinContract"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
+            android:entries="@array/aContract" />
+
+        <ToggleButton
+            android:id="@+id/toggleContract"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:textOff="@string/btnNetto"
+            android:textOn="@string/btnBrutto" />
+    </LinearLayout>
 
     <Button
+        android:id="@+id/btnStartStop"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/strStart"
-        android:id="@+id/btnStartStop" />
+        android:layout_marginTop="16dp"
+        android:text="@string/strStart" />
 
-    <TextView
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/strMoney"
-        android:id="@+id/tvMoney"
-        android:drawableLeft="@drawable/money"
-        android:drawableStart="@drawable/money"
-        android:drawablePadding="@dimen/icon_padding"
-        android:gravity="center_vertical"
-        android:textStyle="bold"
-        android:textSize="32sp" />
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/strTimer"
-        android:id="@+id/tvTimer"
-        android:drawableLeft="@drawable/timer"
-        android:drawableStart="@drawable/timer"
-        android:gravity="center_vertical"
-        android:drawablePadding="@dimen/icon_padding"
-        android:textSize="24sp" />
+        <TextView
+            android:id="@+id/tvMoney"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/money"
+            android:drawablePadding="@dimen/icon_padding"
+            android:drawableStart="@drawable/money"
+            android:gravity="center_vertical"
+            android:text="@string/strMoney"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTimer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/timer"
+            android:drawablePadding="@dimen/icon_padding"
+            android:drawableStart="@drawable/timer"
+            android:gravity="center_vertical"
+            android:text="@string/strTimer"
+            android:textSize="24sp" />
+    </LinearLayout>
 
 </LinearLayout>
