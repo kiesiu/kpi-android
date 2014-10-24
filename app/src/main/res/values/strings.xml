@@ -17,6 +17,7 @@
     <string name="app_name">Hajs musi się zgadzać</string>
     <string name="strSalary">Twoja mięsieczna pensja</string>
     <string name="strStart">Start</string>
+    <string name="strStop">Stop</string>
     <string name="strMoney">0.00</string>
     <string name="strTimer">0:00:00</string>
     <string name="menu_about">O programie</string>

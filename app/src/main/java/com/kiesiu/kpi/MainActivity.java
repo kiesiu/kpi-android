@@ -19,15 +19,27 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
+    private final Handler updateHandler = new Handler();
+    private long startTime = 0;
+    private Button btnStartStop;
+    private TextView tvTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tvTimer = (TextView) findViewById(R.id.tvTimer);
+        btnStartStop = (Button) findViewById(R.id.btnStartStop);
+        btnStartStop.setOnClickListener(listenerStartStop);
     }
 
     @Override
@@ -48,4 +60,26 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private final View.OnClickListener listenerStartStop = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            startTime = SystemClock.elapsedRealtime();
+            updateHandler.post(updateLiveData);
+        }
+    };
+
+    private final Runnable updateLiveData = new Runnable() {
+        @Override
+        public void run() {
+            long delta = SystemClock.elapsedRealtime() - startTime;
+            int sec = (int) (delta / 1000);
+            int min = sec / 60;
+            int hrs = min / 60;
+            tvTimer.setText(String.valueOf(hrs) + ":"
+                    + String.format("%02d", min % 60) + ":"
+                    + String.format("%02d", sec % 60));
+            updateHandler.postDelayed(updateLiveData, 100);
+        }
+    };
 }
