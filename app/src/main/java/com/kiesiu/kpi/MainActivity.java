@@ -25,20 +25,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private final Handler updateHandler = new Handler();
     private long startTime = 0;
-    private Button btnStartStop;
-    private TextView tvTimer;
+    private double salary = 0.0;
+    private TextView tvTimer, tvMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tvTimer = (TextView) findViewById(R.id.tvTimer);
-        btnStartStop = (Button) findViewById(R.id.btnStartStop);
+        tvMoney = (TextView) findViewById(R.id.tvMoney);
+        Button btnStartStop = (Button) findViewById(R.id.btnStartStop);
         btnStartStop.setOnClickListener(listenerStartStop);
     }
 
@@ -64,6 +67,14 @@ public class MainActivity extends Activity {
     private final View.OnClickListener listenerStartStop = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            EditText etSalary = (EditText) findViewById(R.id.etSalary);
+            try {
+                salary = Double.parseDouble(etSalary.getText().toString());
+            }
+            catch (NumberFormatException e) {
+                Toast.makeText(getApplicationContext(), R.string.errNaNSalary, Toast.LENGTH_LONG).show();
+                return;
+            }
             startTime = SystemClock.elapsedRealtime();
             updateHandler.post(updateLiveData);
         }
@@ -72,14 +83,12 @@ public class MainActivity extends Activity {
     private final Runnable updateLiveData = new Runnable() {
         @Override
         public void run() {
-            long delta = SystemClock.elapsedRealtime() - startTime;
-            int sec = (int) (delta / 1000);
-            int min = sec / 60;
-            int hrs = min / 60;
-            tvTimer.setText(String.valueOf(hrs) + ":"
-                    + String.format("%02d", min % 60) + ":"
+            int sec = (int) ((SystemClock.elapsedRealtime() - startTime) / 1000);
+            tvTimer.setText(String.valueOf(sec / 3600) + ":"
+                    + String.format("%02d", (sec / 60) % 60) + ":"
                     + String.format("%02d", sec % 60));
-            updateHandler.postDelayed(updateLiveData, 100);
+            tvMoney.setText(String.format("%.2f", sec * (salary * 12 / 2000 / 3600)));
+            updateHandler.postDelayed(updateLiveData, 1000);
         }
     };
 }

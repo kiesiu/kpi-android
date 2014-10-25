@@ -32,4 +32,5 @@
         <item>umowa zlecenie</item>
         <item>umowa o dzieło</item>
     </string-array>
+    <string name="errNaNSalary">Należy wpisać pensję jako liczbę</string>
 </resources>
