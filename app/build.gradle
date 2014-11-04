@@ -13,11 +13,15 @@
  * limitations under the License.
  */
 
+
+
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+    }
     compileSdkVersion 21
-    buildToolsVersion "21.0.1"
+    buildToolsVersion '21.1.0'
     defaultConfig {
         applicationId "com.kiesiu.kpi"
         minSdkVersion 8
