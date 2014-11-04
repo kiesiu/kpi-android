@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,9 +30,8 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private final Handler updateHandler = new Handler();
-    private long startTime = 0;
-    private double salary = 0.0;
     private TextView tvTimer, tvMoney;
+    private BruttoNetto bnObject = new BruttoNetto();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,25 +67,21 @@ public class MainActivity extends Activity {
         public void onClick(View view) {
             EditText etSalary = (EditText) findViewById(R.id.etSalary);
             try {
-                salary = Double.parseDouble(etSalary.getText().toString());
-            }
-            catch (NumberFormatException e) {
-                Toast.makeText(getApplicationContext(), R.string.errNaNSalary, Toast.LENGTH_LONG).show();
+                bnObject.startTimer(Double.parseDouble(etSalary.getText().toString()));
+            } catch (NumberFormatException e) {
+                Toast.makeText(getApplicationContext(), R.string.errNaNSalary,
+                        Toast.LENGTH_LONG).show();
                 return;
             }
-            startTime = SystemClock.elapsedRealtime();
-            updateHandler.post(updateLiveData);
+            updateHandler.postDelayed(updateLiveData, 1000);
         }
     };
 
     private final Runnable updateLiveData = new Runnable() {
         @Override
         public void run() {
-            int sec = (int) ((SystemClock.elapsedRealtime() - startTime) / 1000);
-            tvTimer.setText(String.valueOf(sec / 3600) + ":"
-                    + String.format("%02d", (sec / 60) % 60) + ":"
-                    + String.format("%02d", sec % 60));
-            tvMoney.setText(String.format("%.2f", sec * (salary * 12 / 2000 / 3600)));
+            tvTimer.setText(bnObject.getLiveTime());
+            tvMoney.setText(bnObject.getLiveNetto());
             updateHandler.postDelayed(updateLiveData, 1000);
         }
     };
