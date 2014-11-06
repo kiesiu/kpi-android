@@ -24,36 +24,30 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.kiesiu.kpi.MainActivity">
 
-    <EditText
-        android:id="@+id/etSalary"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/strSalary"
-        android:inputType="numberDecimal" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="4">
 
-        <Spinner
-            android:id="@+id/spinContract"
+        <EditText
+            android:id="@+id/etSalary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
             android:layout_weight="3"
-            android:entries="@array/aContract" />
+            android:ems="10"
+            android:hint="@string/strSalary"
+            android:inputType="numberDecimal" />
 
         <ToggleButton
-            android:id="@+id/toggleContract"
+            android:id="@+id/toggleBNtype"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:textOff="@string/btnNetto"
-            android:textOn="@string/btnBrutto" />
+            android:textOff="@string/btnBrutto"
+            android:textOn="@string/btnNetto" />
     </LinearLayout>
 
     <Button

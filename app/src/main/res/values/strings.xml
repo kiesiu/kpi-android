@@ -27,10 +27,5 @@
     <string name="strCredits">Copyright © 2014 Łukasz Kieś\n\nIncome designed by <a href="http://www.thenounproject.com/Doug Cavendish">Doug Cavendish</a> from the <a href="http://www.thenounproject.com">Noun Project</a>. Time designed by <a href="http://www.thenounproject.com/Wayne25uk">Wayne Middleton</a> from the <a href="http://www.thenounproject.com">Noun Project</a>.</string>
     <string name="btnNetto">netto</string>
     <string name="btnBrutto">brutto</string>
-    <string-array name="aContract">
-        <item>umowa o pracę</item>
-        <item>umowa zlecenie</item>
-        <item>umowa o dzieło</item>
-    </string-array>
     <string name="errNaNSalary">Pensja musi być liczbą.</string>
 </resources>
