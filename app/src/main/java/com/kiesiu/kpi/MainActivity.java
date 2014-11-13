@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +58,7 @@ public class MainActivity extends Activity {
                         Uri.parse("market://details?id=com.kiesiu.kpi")));
                 break;
             case R.id.action_about:
-                startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                startActivity(new Intent(this.getBaseContext(), AboutActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -69,6 +70,8 @@ public class MainActivity extends Activity {
             EditText etSalary = (EditText) findViewById(R.id.etSalary);
             try {
                 bnObject.startTimer(Double.parseDouble(etSalary.getText().toString()));
+                ((ListView) findViewById(R.id.listBruttoNetto)).setAdapter(
+                        new kpiAdapter(getBaseContext(), bnObject.getList(getBaseContext())));
             } catch (NumberFormatException e) {
                 Toast.makeText(getApplicationContext(), R.string.errNaNSalary,
                         Toast.LENGTH_LONG).show();
