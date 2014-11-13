@@ -15,9 +15,12 @@
 
 package com.kiesiu.kpi;
 
+import android.content.Context;
 import android.os.SystemClock;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BruttoNetto {
     private double brutto, netto;
@@ -53,5 +56,15 @@ public class BruttoNetto {
         brutto = value;
         netto4UP();
         startTime = SystemClock.elapsedRealtime();
+    }
+
+    public List<String[]> getList(Context ctx) {
+        List<String[]> list = new ArrayList<String[]>();
+        list.add(new String[]{String.format("%.2f", brutto), ctx.getString(R.string.detailsBrutto)});
+        list.add(new String[]{String.format("%.2f", netto), ctx.getString(R.string.detailsNetto)});
+        list.add(new String[]{String.format("%.2f", zusInstallment), ctx.getString(R.string.detailsZUS)});
+        list.add(new String[]{String.format("%.2f", medInsurance), ctx.getString(R.string.detailsMed)});
+        list.add(new String[]{String.format("%.2f", taxInstallment), ctx.getString(R.string.detailsTax)});
+        return list;
     }
 }
