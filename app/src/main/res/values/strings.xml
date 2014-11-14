@@ -15,7 +15,7 @@
 
 <resources>
     <string name="app_name">Hajs musi się zgadzać</string>
-    <string name="strSalary">Twoja pensja</string>
+    <string name="strSalary">Twoja miesięczna pensja</string>
     <string name="strStart">Start</string>
     <string name="strStop">Stop</string>
     <string name="strMoney">0.00</string>

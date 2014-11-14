@@ -24,31 +24,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.kiesiu.kpi.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/etSalary"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="4">
+        android:ems="10"
+        android:hint="@string/strSalary"
+        android:inputType="numberDecimal" />
 
-        <EditText
-            android:id="@+id/etSalary"
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbBrutto"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="3"
-            android:ems="10"
-            android:hint="@string/strSalary"
-            android:inputType="numberDecimal" />
-
-        <ToggleButton
-            android:id="@+id/toggleBNtype"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
-            android:textOff="@string/btnBrutto"
-            android:textOn="@string/btnNetto" />
-    </LinearLayout>
+            android:checked="true"
+            android:text="@string/btnBrutto" />
+
+        <RadioButton
+            android:id="@+id/rbNetto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btnNetto" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/btnStartStop"
@@ -60,7 +63,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:orientation="horizontal">
 
         <TextView
@@ -70,7 +73,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:drawableLeft="@drawable/money"
-            android:drawablePadding="@dimen/icon_padding"
+            android:drawablePadding="8dp"
             android:drawableStart="@drawable/money"
             android:gravity="center_vertical"
             android:text="@string/strMoney"
@@ -84,7 +87,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:drawableLeft="@drawable/timer"
-            android:drawablePadding="@dimen/icon_padding"
+            android:drawablePadding="8dp"
             android:drawableStart="@drawable/timer"
             android:gravity="center_vertical"
             android:text="@string/strTimer"
@@ -95,7 +98,7 @@
         android:id="@+id/listBruttoNetto"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:layout_weight="1" />
 
 </LinearLayout>
