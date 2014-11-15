@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
     private final Handler updateHandler = new Handler();
     private TextView tvTimer, tvMoney;
     private BruttoNetto bnObject = new BruttoNetto();
+    private boolean Gross = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,7 @@ public class MainActivity extends Activity {
         public void onClick(View view) {
             EditText etSalary = (EditText) findViewById(R.id.etSalary);
             try {
-                bnObject.startTimer(Double.parseDouble(etSalary.getText().toString()));
+                bnObject.startTimer(Double.parseDouble(etSalary.getText().toString()), Gross);
                 ((ListView) findViewById(R.id.listBruttoNetto)).setAdapter(
                         new kpiAdapter(getBaseContext(), bnObject.getList(getBaseContext())));
             } catch (NumberFormatException e) {

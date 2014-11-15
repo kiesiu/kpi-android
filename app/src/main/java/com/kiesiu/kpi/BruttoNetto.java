@@ -31,13 +31,41 @@ public class BruttoNetto {
         return new BigDecimal(String.valueOf(big)).setScale(scale, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
-    private void netto4UP() {
+    private void netto4UP(double value) {
+        brutto = value;
         zusInstallment = roundDouble(brutto * 0.1371, 2);
         medInsurance = roundDouble((brutto - zusInstallment) * 0.09, 2);
         taxInstallment = roundDouble(
                 roundDouble(brutto - zusInstallment - 111.25, 0) *
                         0.18 - 46.33 - roundDouble((brutto - zusInstallment) * 0.0775, 2), 0);
         netto = brutto - zusInstallment - medInsurance - taxInstallment;
+    }
+
+    private void brutto4UP(double value) {
+        double myNetto;
+        double myBrutto = roundDouble(value * 1.7151, 2);
+        netto4UP(myBrutto);
+        do {
+            myNetto = roundDouble(netto - value, 2);
+            if (myNetto > 100) {
+                myBrutto -= 100;
+            } else if (myNetto > 50) {
+                myBrutto -= 50;
+            } else if (myNetto > 10) {
+                myBrutto -= 10;
+            } else if (myNetto > 5) {
+                myBrutto -= 5;
+            } else if (myNetto > 1) {
+                myBrutto -= 1;
+            } else if (myNetto > 0.5) {
+                myBrutto -= 0.5;
+            } else if (myNetto > 0.11) {
+                myBrutto -= 0.11;
+            } else {
+                myBrutto -= 0.01;
+            }
+            netto4UP(myBrutto);
+        } while (myNetto > 0);
     }
 
     public String getLiveTime() {
@@ -52,9 +80,12 @@ public class BruttoNetto {
         return String.format("%.2f", sec * (netto * 12 / 2000 / 3600));
     }
 
-    public void startTimer(double value) {
-        brutto = value;
-        netto4UP();
+    public void startTimer(double value, boolean gross) {
+        if (gross) {
+            netto4UP(value);
+        } else {
+            brutto4UP(value);
+        }
         startTime = SystemClock.elapsedRealtime();
     }
 
