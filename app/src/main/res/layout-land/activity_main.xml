@@ -43,7 +43,8 @@
         <RadioGroup
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/bnRadioGroup">
 
             <RadioButton
                 android:id="@+id/rbBrutto"

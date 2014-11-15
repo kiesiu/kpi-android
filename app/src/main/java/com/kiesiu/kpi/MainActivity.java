@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,8 @@ public class MainActivity extends Activity {
         tvMoney = (TextView) findViewById(R.id.tvMoney);
         Button btnStartStop = (Button) findViewById(R.id.btnStartStop);
         btnStartStop.setOnClickListener(listenerStartStop);
+        RadioGroup bnRadioGroup = (RadioGroup) findViewById(R.id.bnRadioGroup);
+        bnRadioGroup.setOnCheckedChangeListener(listenerRadioGroup);
     }
 
     @Override
@@ -79,6 +82,13 @@ public class MainActivity extends Activity {
                 return;
             }
             updateHandler.postDelayed(updateLiveData, 1000);
+        }
+    };
+
+    private final RadioGroup.OnCheckedChangeListener listenerRadioGroup = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup radioGroup, int i) {
+            Gross = i != R.id.rbNetto;
         }
     };
 
