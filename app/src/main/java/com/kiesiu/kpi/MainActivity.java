@@ -49,6 +49,20 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBundle("bnObject", bnObject.getTimer());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (bnObject.restartTimer(savedInstanceState.getBundle("bnObject"))) {
+            updateActivityData();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -68,20 +82,24 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void updateActivityData() {
+        ((ListView) findViewById(R.id.listBruttoNetto)).setAdapter(
+                new kpiAdapter(getBaseContext(), bnObject.getList(getBaseContext())));
+        updateHandler.postDelayed(updateLiveData, 1000);
+    }
+
     private final View.OnClickListener listenerStartStop = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             EditText etSalary = (EditText) findViewById(R.id.etSalary);
             try {
                 bnObject.startTimer(Double.parseDouble(etSalary.getText().toString()), Gross);
-                ((ListView) findViewById(R.id.listBruttoNetto)).setAdapter(
-                        new kpiAdapter(getBaseContext(), bnObject.getList(getBaseContext())));
             } catch (NumberFormatException e) {
                 Toast.makeText(getApplicationContext(), R.string.errNaNSalary,
                         Toast.LENGTH_LONG).show();
                 return;
             }
-            updateHandler.postDelayed(updateLiveData, 1000);
+            updateActivityData();
         }
     };
 

@@ -16,6 +16,7 @@
 package com.kiesiu.kpi;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.SystemClock;
 
 import java.math.BigDecimal;
@@ -23,9 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BruttoNetto {
-    private double brutto, netto;
-    private double zusInstallment, medInsurance, taxInstallment;
-    private long startTime;
+    private double brutto, netto, zusInstallment, medInsurance, taxInstallment;
+    private long startTime = 0;
 
     private double roundDouble(double big, int scale) {
         return new BigDecimal(String.valueOf(big)).setScale(scale, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -65,7 +65,7 @@ public class BruttoNetto {
                 myBrutto -= 0.01;
             }
             netto4UP(myBrutto);
-        } while (myNetto > 0);
+        } while (myNetto > 0.01);
     }
 
     public String getLiveTime() {
@@ -87,6 +87,22 @@ public class BruttoNetto {
             brutto4UP(value);
         }
         startTime = SystemClock.elapsedRealtime();
+    }
+
+    public boolean restartTimer(Bundle b) {
+        startTime = b.getLong("start");
+        if (startTime > 0) {
+            netto4UP(b.getDouble("brutto"));
+            return true;
+        }
+        return false;
+    }
+
+    public Bundle getTimer() {
+        Bundle b = new Bundle();
+        b.putDouble("brutto", brutto);
+        b.putLong("start", startTime);
+        return b;
     }
 
     public List<String[]> getList(Context ctx) {
