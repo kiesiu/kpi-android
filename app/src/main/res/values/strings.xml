@@ -28,6 +28,7 @@
     <string name="btnNetto">netto</string>
     <string name="btnBrutto">brutto</string>
     <string name="errNaNSalary">Pensja musi być liczbą.</string>
+    <string name="errMinBrutto">Podana pensja jest mniejsza niż płaca minimalna (%s brutto)."</string>
     <string name="detailsBrutto">pensja brutto</string>
     <string name="detailsNetto">pensja netto</string>
     <string name="detailsZUS">składki ZUS</string>

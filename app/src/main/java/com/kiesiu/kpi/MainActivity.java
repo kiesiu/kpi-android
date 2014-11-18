@@ -33,7 +33,8 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
     private final Handler updateHandler = new Handler();
     private TextView tvTimer, tvMoney;
-    private BruttoNetto bnObject = new BruttoNetto();
+    private Button btnStartStop;
+    private final BruttoNetto bnObject = new BruttoNetto();
     private boolean Gross = true;
 
     @Override
@@ -42,7 +43,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         tvTimer = (TextView) findViewById(R.id.tvTimer);
         tvMoney = (TextView) findViewById(R.id.tvMoney);
-        Button btnStartStop = (Button) findViewById(R.id.btnStartStop);
+        btnStartStop = (Button) findViewById(R.id.btnStartStop);
         btnStartStop.setOnClickListener(listenerStartStop);
         RadioGroup bnRadioGroup = (RadioGroup) findViewById(R.id.bnRadioGroup);
         bnRadioGroup.setOnCheckedChangeListener(listenerRadioGroup);
@@ -58,7 +59,10 @@ public class MainActivity extends Activity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (bnObject.restartTimer(savedInstanceState.getBundle("bnObject"))) {
-            updateActivityData();
+            updateDataList();
+            updateHandler.postDelayed(updateLiveData, 1000);
+            btnStartStop.setText(R.string.strStop);
+            btnStartStop.setTag("1");
         }
     }
 
@@ -82,24 +86,42 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateActivityData() {
+    private void updateDataList() {
         ((ListView) findViewById(R.id.listBruttoNetto)).setAdapter(
                 new kpiAdapter(getBaseContext(), bnObject.getList(getBaseContext())));
-        updateHandler.postDelayed(updateLiveData, 1000);
     }
 
     private final View.OnClickListener listenerStartStop = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            EditText etSalary = (EditText) findViewById(R.id.etSalary);
-            try {
-                bnObject.startTimer(Double.parseDouble(etSalary.getText().toString()), Gross);
-            } catch (NumberFormatException e) {
-                Toast.makeText(getApplicationContext(), R.string.errNaNSalary,
-                        Toast.LENGTH_LONG).show();
-                return;
+            if (btnStartStop.getTag() == "1") {
+                bnObject.stopTimer();
+                updateHandler.removeCallbacks(updateLiveData);
+                btnStartStop.setText(R.string.strStart);
+                btnStartStop.setTag(null);
             }
-            updateActivityData();
+            else {
+                double salary;
+                try {
+                    salary = Double.parseDouble(((EditText) findViewById(R.id.etSalary)).getText().toString());
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), R.string.errNaNSalary,
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+                try {
+                    bnObject.startTimer(salary, Gross);
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(),
+                            String.format(getString(R.string.errMinBrutto), e.getMessage()),
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+                updateDataList();
+                updateHandler.postDelayed(updateLiveData, 1000);
+                btnStartStop.setText(R.string.strStop);
+                btnStartStop.setTag("1");
+            }
         }
     };
 
