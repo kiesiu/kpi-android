@@ -26,8 +26,8 @@ android {
         applicationId "com.kiesiu.kpi"
         minSdkVersion 8
         targetSdkVersion 21
-        versionCode 90
-        versionName '0.9'
+        versionCode 91
+        versionName '0.9.1'
     }
     buildTypes {
         release {
