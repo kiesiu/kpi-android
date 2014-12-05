@@ -17,6 +17,8 @@
 
 
 
+
+
 apply plugin: 'com.android.application'
 
 android {
@@ -31,7 +33,7 @@ android {
     }
     buildTypes {
         release {
-            runProguard true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
