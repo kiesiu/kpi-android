@@ -26,7 +26,8 @@ import java.util.List;
 public class BruttoNetto {
     private double brutto, netto, zusInstallment, medInsurance, taxInstallment;
     private long startTime = 0;
-    private final static double MIN_BRUTTO = 1680.0;
+    private final static double MIN_BRUTTO = 1750.0;
+    private final static long WHOURS = 2016;
 
     private double roundDouble(double big, int scale) {
         return new BigDecimal(String.valueOf(big)).setScale(scale, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -78,7 +79,7 @@ public class BruttoNetto {
 
     public String getLiveNetto() {
         int sec = (int) ((SystemClock.elapsedRealtime() - startTime) / 1000);
-        return String.format("%.2f", sec * (netto * 12 / 2000 / 3600));
+        return String.format("%.2f", sec * (netto * 12 / WHOURS / 3600));
     }
 
     public void startTimer(double value, boolean gross) throws Exception {
