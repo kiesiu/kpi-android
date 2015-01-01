@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2014 Łukasz Kieś <kiesiu@kiesiu.com>.
+  ~ Copyright (c) 2015 Łukasz Kieś <kiesiu@kiesiu.com>.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@
     <string name="menu_about">O programie</string>
     <string name="menu_rate">Oceń aplikację</string>
     <string name="title_activity_details">Twoja pensja</string>
-    <string name="strAbout">Sprawdź ile jest warta Twoja praca.</string>
-    <string name="strCredits">Copyright © 2014 Łukasz Kieś\n\nIncome designed by <a href="http://www.thenounproject.com/Doug Cavendish">Doug Cavendish</a> from the <a href="http://www.thenounproject.com">Noun Project</a>. Time designed by <a href="http://www.thenounproject.com/Wayne25uk">Wayne Middleton</a> from the <a href="http://www.thenounproject.com">Noun Project</a>.</string>
+    <string name="strAbout">Sprawdź ile jest warta Twoja praca.\nPodaj swoją miesięczną pensję i zobacz ile zarobisz właśnie teraz, patrząc na ekran swojego telefonu lub tabletu.\nAplikacja automatycznie obliczy wartość brutto oraz netto Twojej pensji, składki ZUS, na ubezpieczenie zdrowotne oraz zaliczkę na podatek dochodowy (PIT).</string>
+    <string name="strCredits">Copyright © 2014-2015 Łukasz Kieś\n\nIncome designed by <a href="http://www.thenounproject.com/Doug Cavendish">Doug Cavendish</a> from the <a href="http://www.thenounproject.com">Noun Project</a>. Time designed by <a href="http://www.thenounproject.com/Wayne25uk">Wayne Middleton</a> from the <a href="http://www.thenounproject.com">Noun Project</a>.</string>
     <string name="btnNetto">netto</string>
     <string name="btnBrutto">brutto</string>
     <string name="errNaNSalary">Pensja musi być liczbą.</string>
