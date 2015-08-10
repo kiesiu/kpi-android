@@ -1,9 +1,10 @@
 <!--
-  ~ Copyright (c) 2014 Łukasz Kieś <kiesiu@kiesiu.com>.
+  ~ Copyright (c) 2015 Łukasz Kieś <kiesiu@kiesiu.com>.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
   ~ You may obtain a copy of the License at
+  ~
   ~     http://www.apache.org/licenses/LICENSE-2.0
   ~
   ~ Unless required by applicable law or agreed to in writing, software
@@ -47,19 +48,19 @@
             android:id="@+id/bnRadioGroup">
 
             <RadioButton
-                android:id="@+id/rbBrutto"
+                android:id="@+id/rbGross"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="@string/btnBrutto" />
+                android:text="@string/btnGross" />
 
             <RadioButton
-                android:id="@+id/rbNetto"
+                android:id="@+id/rbNet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/btnNetto" />
+                android:text="@string/btnNet" />
         </RadioGroup>
 
         <Button
@@ -76,14 +77,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tvMoney"
+                android:id="@+id/tvYourMoney"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:drawablePadding="4dp"
                 android:drawableTop="@drawable/money"
                 android:gravity="center_horizontal"
-                android:text="@string/strMoney"
+                android:text="@string/strYourMoney"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -102,7 +103,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/listBruttoNetto"
+        android:id="@+id/listDetails"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="2dp"

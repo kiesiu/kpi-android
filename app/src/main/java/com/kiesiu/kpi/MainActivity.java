@@ -1,9 +1,10 @@
 /*
- * Copyright (c) 2014 Łukasz Kieś <kiesiu@kiesiu.com>.
+ * Copyright (c) 2015 Łukasz Kieś <kiesiu@kiesiu.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -22,43 +23,42 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
+
 public class MainActivity extends Activity {
     private final Handler updateHandler = new Handler();
-    private TextView tvTimer, tvMoney;
-    private Button btnStartStop;
-    private final BruttoNetto bnObject = new BruttoNetto();
+    private final SalaryCalculation salary = new SalaryCalculation();
     private boolean Gross = true;
+    @Bind(R.id.tvTimer) TextView tvTimer;
+    @Bind(R.id.tvYourMoney) TextView tvMoney;
+    @Bind(R.id.btnStartStop) Button btnStartStop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tvTimer = (TextView) findViewById(R.id.tvTimer);
-        tvMoney = (TextView) findViewById(R.id.tvMoney);
-        btnStartStop = (Button) findViewById(R.id.btnStartStop);
-        btnStartStop.setOnClickListener(listenerStartStop);
-        RadioGroup bnRadioGroup = (RadioGroup) findViewById(R.id.bnRadioGroup);
-        bnRadioGroup.setOnCheckedChangeListener(listenerRadioGroup);
+        ButterKnife.bind(this);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBundle("bnObject", bnObject.getTimer());
+        outState.putBundle("salary", salary.getTimer());
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        if (bnObject.restartTimer(savedInstanceState.getBundle("bnObject"))) {
+        if (salary.restartTimer(savedInstanceState.getBundle("salary"))) {
             updateDataList();
             updateHandler.postDelayed(updateLiveData, 1000);
             btnStartStop.setText(R.string.strStop);
@@ -87,56 +87,52 @@ public class MainActivity extends Activity {
     }
 
     private void updateDataList() {
-        ((ListView) findViewById(R.id.listBruttoNetto)).setAdapter(
-                new kpiAdapter(getBaseContext(), bnObject.getList(getBaseContext())));
+        ((ListView) findViewById(R.id.listDetails)).setAdapter(
+                new kpiAdapter(getBaseContext(), salary.getList(getBaseContext())));
     }
 
-    private final View.OnClickListener listenerStartStop = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if (btnStartStop.getTag() == "1") {
-                bnObject.stopTimer();
-                updateHandler.removeCallbacks(updateLiveData);
-                btnStartStop.setText(R.string.strStart);
-                btnStartStop.setTag(null);
-            }
-            else {
-                double salary;
-                try {
-                    salary = Double.parseDouble(((EditText) findViewById(R.id.etSalary)).getText().toString());
-                } catch (NumberFormatException e) {
-                    Toast.makeText(getApplicationContext(), R.string.errNaNSalary,
-                            Toast.LENGTH_LONG).show();
-                    return;
-                }
-                try {
-                    bnObject.startTimer(salary, Gross);
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(),
-                            String.format(getString(R.string.errMinBrutto), e.getMessage()),
-                            Toast.LENGTH_LONG).show();
-                    return;
-                }
-                updateDataList();
-                updateHandler.postDelayed(updateLiveData, 1000);
-                btnStartStop.setText(R.string.strStop);
-                btnStartStop.setTag("1");
-            }
+    @OnClick(R.id.btnStartStop)
+    public void onStartStopClick() {
+        if (btnStartStop.getTag() == "1") {
+            salary.stopTimer();
+            updateHandler.removeCallbacks(updateLiveData);
+            btnStartStop.setText(R.string.strStart);
+            btnStartStop.setTag(null);
         }
-    };
+        else {
+            float userValue;
+            try {
+                userValue = Float.parseFloat(((EditText) findViewById(R.id.etSalary)).getText().toString());
+            } catch (NumberFormatException e) {
+                Toast.makeText(getApplicationContext(), R.string.errNaNSalary,
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+            try {
+                salary.startTimer(userValue, Gross);
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),
+                        String.format(getString(R.string.errMinGross), e.getMessage()),
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+            updateDataList();
+            updateHandler.postDelayed(updateLiveData, 1000);
+            btnStartStop.setText(R.string.strStop);
+            btnStartStop.setTag("1");
+        }
+    }
 
-    private final RadioGroup.OnCheckedChangeListener listenerRadioGroup = new RadioGroup.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(RadioGroup radioGroup, int i) {
-            Gross = i != R.id.rbNetto;
-        }
-    };
+    @OnCheckedChanged(R.id.rbGross)
+    public void onGrossChecked(boolean checked) {
+        Gross = checked;
+    }
 
     private final Runnable updateLiveData = new Runnable() {
         @Override
         public void run() {
-            tvTimer.setText(bnObject.getLiveTime());
-            tvMoney.setText(bnObject.getLiveNetto());
+            tvTimer.setText(salary.getLiveTime());
+            tvMoney.setText(salary.getLiveNetto());
             updateHandler.postDelayed(updateLiveData, 1000);
         }
     };
