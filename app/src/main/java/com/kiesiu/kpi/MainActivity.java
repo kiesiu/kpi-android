@@ -16,11 +16,11 @@
 
 package com.kiesiu.kpi;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private final Handler updateHandler = new Handler();
     private final SalaryCalculation salary = new SalaryCalculation();
     private boolean Gross = true;
